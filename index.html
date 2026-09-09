@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Inferno: 21st Birthday Edition</title>
+  <style>
+    @font-face {
+      font-family: 'PixelatedElegance';
+      src: url('PixelatedElegance.ttf') format('truetype'),
+           url('assets/fonts/PixelatedElegance.ttf') format('truetype');
+      font-weight: normal;
+      font-style: normal;
+    }
+
+    :root {
+      --bg-pitch: #03060f;
+      --bg-midnight: #070e22;
+      --bg-card: #0b1536;
+      --bg-card-hover: #101e4a;
+      --border-gold: #c9a458;
+      --border-dim: #1e2e60;
+      --accent-blue: #38bdf8;
+      --text-main: #e2e8f0;
+      --text-muted: #94a3b8;
+      --text-gold: #f6d88c;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-pitch);
+      background-image: 
+        radial-gradient(circle at 50% 10%, rgba(20, 35, 80, 0.6) 0%, transparent 60%),
+        linear-gradient(180deg, var(--bg-midnight) 0%, var(--bg-pitch) 100%);
+      color: var(--text-main);
+      font-family: 'PixelatedElegance', monospace, sans-serif;
+      min-height: 100vh;
+      line-height: 1.6;
+      overflow-x: hidden;
+      image-rendering: pixelated;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.25rem 2rem;
+      border-bottom: 2px solid var(--border-dim);
+      background: rgba(3, 6, 15, 0.85);
+      position: sticky;
+      top: 0;
+      backdrop-filter: blur(8px);
+      z-index: 50;
+    }
+
+    .brand {
+      font-size: 1.1rem;
+      color: var(--text-gold);
+      letter-spacing: 1px;
+    }
+
+    .audio-player {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      background: var(--bg-midnight);
+      border: 1px solid var(--border-gold);
+      padding: 0.4rem 0.85rem;
+      border-radius: 4px;
+    }
+
+    .audio-btn {
+      background: transparent;
+      border: none;
+      color: var(--accent-blue);
+      cursor: pointer;
+      font-family: inherit;
+      font-size: 0.85rem;
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+
+    .audio-btn:hover {
+      color: #fff;
+    }
+
+    .track-title {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    .container {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 3rem 1.5rem 5rem;
+    }
+
+    .hero {
+      text-align: center;
+      padding: 3rem 1rem 4rem;
+    }
+
+    .tagline {
+      display: inline-block;
+      border: 1px solid var(--border-dim);
+      background: rgba(14, 25, 60, 0.7);
+      padding: 0.35rem 1rem;
+      font-size: 0.8rem;
+      color: var(--accent-blue);
+      margin-bottom: 1.5rem;
+      letter-spacing: 1px;
+    }
+
+    h1 {
+      font-size: 2.75rem;
+      color: #fff;
+      text-shadow: 0 0 12px rgba(56, 189, 248, 0.35);
+      margin-bottom: 1rem;
+      letter-spacing: 2px;
+    }
+
+    .subtitle {
+      max-width: 620px;
+      margin: 0 auto 2.5rem;
+      color: var(--text-muted);
+      font-size: 0.95rem;
+    }
+
+    .cta-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .download-btn {
+      display: inline-block;
+      background: linear-gradient(180deg, #24428a 0%, #152754 100%);
+      color: #fff;
+      text-decoration: none;
+      padding: 1rem 2.25rem;
+      border: 2px solid var(--border-gold);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.6), inset 0 0 8px rgba(201, 164, 88, 0.3);
+      font-size: 1rem;
+      font-family: inherit;
+      cursor: pointer;
+      transition: all 0.15s ease-in-out;
+    }
+
+    .download-btn:hover {
+      background: linear-gradient(180deg, #325ab5 0%, #1c3675 100%);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(56, 189, 248, 0.25);
+    }
+
+    .btn-meta {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    .section-title {
+      font-size: 1.4rem;
+      color: var(--text-gold);
+      border-left: 4px solid var(--border-gold);
+      padding-left: 0.75rem;
+      margin: 3.5rem 0 1.75rem;
+      letter-spacing: 1px;
+    }
+
+    .roster-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-dim);
+      padding: 1.25rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      transition: border-color 0.2s ease, transform 0.2s ease;
+    }
+
+    .card:hover {
+      border-color: var(--border-gold);
+      background: var(--bg-card-hover);
+      transform: translateY(-3px);
+    }
+
+    .portrait-wrap {
+      width: 110px;
+      height: 110px;
+      margin-bottom: 1.25rem;
+      border: 2px solid var(--border-gold);
+      padding: 3px;
+      background: #000;
+    }
+
+    .portrait-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      image-rendering: pixelated;
+    }
+
+    .char-name {
+      font-size: 1.1rem;
+      color: #fff;
+      margin-bottom: 0.25rem;
+    }
+
+    .char-role {
+      font-size: 0.75rem;
+      color: var(--accent-blue);
+      margin-bottom: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .char-desc {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .specs-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+      margin-top: 1rem;
+    }
+
+    .spec-item {
+      background: rgba(11, 21, 54, 0.5);
+      border: 1px solid var(--border-dim);
+      padding: 1.25rem;
+    }
+
+    .spec-item h3 {
+      font-size: 0.95rem;
+      color: var(--text-gold);
+      margin-bottom: 0.5rem;
+    }
+
+    .spec-item p {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    footer {
+      border-top: 1px solid var(--border-dim);
+      text-align: center;
+      padding: 2.5rem 1rem;
+      color: var(--text-muted);
+      font-size: 0.75rem;
+      background: var(--bg-pitch);
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="brand">CBB ARCHIVE</div>
+    <div class="audio-player">
+      <audio id="theme-music" src="theme.mp3" loop></audio>
+      <button class="audio-btn" id="audio-toggle" type="button">
+        <span id="audio-icon">▶</span>
+        <span id="audio-text">Title Theme</span>
+      </button>
+      <span class="track-title">[Loop]</span>
+    </div>
+  </header>
+
+  <div class="container">
+    <section class="hero">
+      <div class="tagline">TURN-BASED DESCENT &bull; BUILT IN GODOT</div>
+      <h1>INFERNO</h1>
+      <p class="subtitle">
+        A custom RPG crafted for Owen's 21st birthday. Battle through descending dungeon circles, make your choices, and confront what lies beneath.
+      </p>
+
+      <div class="cta-container">
+        <!-- Replace the href below with your GitHub Release file URL -->
+        <a class="download-btn" href="https://github.com/YOUR_USERNAME/YOUR_REPO/releases/latest/download/Inferno-Windows.zip">
+          DOWNLOAD BUILD (.ZIP)
+        </a>
+        <span class="btn-meta">v1.0.0 &bull; Windows Standalone x64</span>
+      </div>
+    </section>
+
+    <div class="section-title">THE PARTY</div>
+    <div class="roster-grid">
+      
+      <div class="card">
+        <div class="portrait-wrap">
+          <img src="owen.png" alt="Owen Portrait" />
+        </div>
+        <div class="char-name">Owen</div>
+        <div class="char-role">Protagonist &bull; Adaptive Class</div>
+        <p class="char-desc">
+          Assigned Warrior, Mage, Healer, or Knight during the prologue trial. Holds the frontline while questioning every moral choice.
+        </p>
+      </div>
+
+      <div class="card">
+        <div class="portrait-wrap">
+          <img src="zeb.png" alt="Zeb Portrait" />
+        </div>
+        <div class="char-name">Zeb</div>
+        <div class="char-role">Undead Vanguard</div>
+        <p class="char-desc">
+          First companion to enlist. Absorbs incoming strikes and keeps the frontline secure no matter how grim the odds look.
+        </p>
+      </div>
+
+      <div class="card">
+        <div class="portrait-wrap">
+          <img src="duc.png" alt="Duc Portrait" />
+        </div>
+        <div class="char-name">Duc</div>
+        <div class="char-role">Arcane Strategist</div>
+        <p class="char-desc">
+          Joined third. Calm, steady, and unbothered, while quietly masking an eerie connection to the Demon Lord's bloodline.
+        </p>
+      </div>
+
+      <div class="card">
+        <div class="portrait-wrap">
+          <img src="ethan.png" alt="Ethan Portrait" />
+        </div>
+        <div class="char-name">Ethan</div>
+        <div class="char-role">Support Specialist</div>
+        <p class="char-desc">
+          Fills the final spot in the formation. Keeps party abilities timed and patched together as the floor collapses.
+        </p>
+      </div>
+
+    </div>
+
+    <div class="section-title">GAME STRUCTURE</div>
+    <div class="specs-grid">
+      <div class="spec-item">
+        <h3>Dante's Dungeon Circles</h3>
+        <p>Layers structured around descending trials. Each floor escalates in enemy mechanics and narrative consequences.</p>
+      </div>
+      <div class="spec-item">
+        <h3>Turn-Based Combat</h3>
+        <p>Classic tactical battles framed inside a visual novel shell. Formations, spell rotations, and role synergy matter.</p>
+      </div>
+      <div class="spec-item">
+        <h3>Fixed Fate Dialogue</h3>
+        <p>Branching dialogue choices flavor party reactions while maintaining a strict, inevitable Fire Emblem style campaign route.</p>
+      </div>
+      <div class="spec-item">
+        <h3>Quick Launch Setup</h3>
+        <p>No installer needed. Download the archive, extract the files, and run the Godot executable directly.</p>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    September 8, 2026 &bull; CBB Deployment &bull; Built for Owen
+  </footer>
+
+  <script>
+    const music = document.getElementById('theme-music');
+    const audioToggle = document.getElementById('audio-toggle');
+    const audioIcon = document.getElementById('audio-icon');
+
+    audioToggle.addEventListener('click', () => {
+      if (music.paused) {
+        music.play().then(() => {
+          audioIcon.textContent = '⏸';
+        }).catch(err => {
+          console.warn('Playback blocked:', err);
+        });
+      } else {
+        music.pause();
+        audioIcon.textContent = '▶';
+      }
+    });
+  </script>
+</body>
+</html>
