@@ -3,27 +3,25 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Inferno: 21st Birthday Edition</title>
+  <title>CBB: A Descent</title>
   <style>
     @font-face {
       font-family: 'PixelatedElegance';
-      src: url('PixelatedElegance.ttf') format('truetype'),
-           url('assets/fonts/PixelatedElegance.ttf') format('truetype');
+      src: url('PixelatedElegance.ttf') format('truetype');
       font-weight: normal;
       font-style: normal;
     }
 
     :root {
-      --bg-pitch: #03060f;
-      --bg-midnight: #070e22;
-      --bg-card: #0b1536;
-      --bg-card-hover: #101e4a;
-      --border-gold: #c9a458;
-      --border-dim: #1e2e60;
-      --accent-blue: #38bdf8;
-      --text-main: #e2e8f0;
-      --text-muted: #94a3b8;
-      --text-gold: #f6d88c;
+      --bg: #020408;
+      --panel: #070d1e;
+      --panel-hover: #0d1733;
+      --border: #1a2744;
+      --gold: #d4af37;
+      --gold-dim: #8a7324;
+      --text: #e6edf3;
+      --text-dim: #8b949e;
+      --accent: #58a6ff;
     }
 
     * {
@@ -33,15 +31,14 @@
     }
 
     body {
-      background-color: var(--bg-pitch);
+      background-color: var(--bg);
       background-image: 
-        radial-gradient(circle at 50% 10%, rgba(20, 35, 80, 0.6) 0%, transparent 60%),
-        linear-gradient(180deg, var(--bg-midnight) 0%, var(--bg-pitch) 100%);
-      color: var(--text-main);
+        radial-gradient(circle at 50% 0%, #0d1b3e 0%, transparent 70%),
+        linear-gradient(180deg, #050b18 0%, var(--bg) 100%);
+      color: var(--text);
       font-family: 'PixelatedElegance', monospace, sans-serif;
+      line-height: 1.5;
       min-height: 100vh;
-      line-height: 1.6;
-      overflow-x: hidden;
       image-rendering: pixelated;
     }
 
@@ -49,343 +46,323 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 1.25rem 2rem;
-      border-bottom: 2px solid var(--border-dim);
-      background: rgba(3, 6, 15, 0.85);
+      padding: 1rem 2rem;
+      border-bottom: 2px solid var(--border);
+      background: rgba(2, 4, 8, 0.9);
       position: sticky;
       top: 0;
-      backdrop-filter: blur(8px);
-      z-index: 50;
+      z-index: 10;
     }
 
-    .brand {
-      font-size: 1.1rem;
-      color: var(--text-gold);
+    .nav-title {
+      font-size: 0.9rem;
+      color: var(--gold);
       letter-spacing: 1px;
     }
 
-    .audio-player {
-      display: inline-flex;
+    .audio-controls {
+      display: flex;
       align-items: center;
-      gap: 0.75rem;
-      background: var(--bg-midnight);
-      border: 1px solid var(--border-gold);
-      padding: 0.4rem 0.85rem;
-      border-radius: 4px;
+      gap: 0.5rem;
+      background: var(--panel);
+      border: 1px solid var(--gold-dim);
+      padding: 0.35rem 0.75rem;
     }
 
     .audio-btn {
       background: transparent;
       border: none;
-      color: var(--accent-blue);
+      color: var(--gold);
       cursor: pointer;
       font-family: inherit;
-      font-size: 0.85rem;
-      display: flex;
-      align-items: center;
-      gap: 0.35rem;
+      font-size: 0.8rem;
     }
 
     .audio-btn:hover {
       color: #fff;
     }
 
-    .track-title {
+    .audio-label {
       font-size: 0.75rem;
-      color: var(--text-muted);
+      color: var(--text-dim);
     }
 
     .container {
-      max-width: 1080px;
+      max-width: 960px;
       margin: 0 auto;
       padding: 3rem 1.5rem 5rem;
     }
 
     .hero {
       text-align: center;
-      padding: 3rem 1rem 4rem;
+      padding: 2.5rem 0 3.5rem;
+      border-bottom: 1px solid var(--border);
     }
 
-    .tagline {
-      display: inline-block;
-      border: 1px solid var(--border-dim);
-      background: rgba(14, 25, 60, 0.7);
-      padding: 0.35rem 1rem;
-      font-size: 0.8rem;
-      color: var(--accent-blue);
-      margin-bottom: 1.5rem;
-      letter-spacing: 1px;
+    .hero-tag {
+      font-size: 0.75rem;
+      color: var(--accent);
+      letter-spacing: 2px;
+      margin-bottom: 0.75rem;
     }
 
     h1 {
-      font-size: 2.75rem;
+      font-size: 2.5rem;
       color: #fff;
-      text-shadow: 0 0 12px rgba(56, 189, 248, 0.35);
+      text-shadow: 0 0 10px rgba(88, 166, 255, 0.3);
       margin-bottom: 1rem;
       letter-spacing: 2px;
     }
 
-    .subtitle {
-      max-width: 620px;
-      margin: 0 auto 2.5rem;
-      color: var(--text-muted);
-      font-size: 0.95rem;
+    .hero-desc {
+      max-width: 580px;
+      margin: 0 auto 2rem;
+      font-size: 0.9rem;
+      color: var(--text-dim);
     }
 
-    .cta-container {
-      display: flex;
+    .download-box {
+      display: inline-flex;
       flex-direction: column;
       align-items: center;
-      gap: 0.75rem;
+      gap: 0.6rem;
     }
 
     .download-btn {
       display: inline-block;
-      background: linear-gradient(180deg, #24428a 0%, #152754 100%);
+      background: #11224d;
       color: #fff;
       text-decoration: none;
-      padding: 1rem 2.25rem;
-      border: 2px solid var(--border-gold);
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.6), inset 0 0 8px rgba(201, 164, 88, 0.3);
-      font-size: 1rem;
+      padding: 0.9rem 2rem;
+      border: 2px solid var(--gold);
       font-family: inherit;
-      cursor: pointer;
-      transition: all 0.15s ease-in-out;
+      font-size: 0.95rem;
+      transition: background 0.15s ease, transform 0.1s ease;
     }
 
     .download-btn:hover {
-      background: linear-gradient(180deg, #325ab5 0%, #1c3675 100%);
+      background: #1a3375;
       transform: translateY(-2px);
-      box-shadow: 0 6px 20px rgba(56, 189, 248, 0.25);
     }
 
-    .btn-meta {
-      font-size: 0.75rem;
-      color: var(--text-muted);
+    .download-meta {
+      font-size: 0.7rem;
+      color: var(--text-dim);
     }
 
-    .section-title {
-      font-size: 1.4rem;
-      color: var(--text-gold);
-      border-left: 4px solid var(--border-gold);
-      padding-left: 0.75rem;
-      margin: 3.5rem 0 1.75rem;
+    .section-heading {
+      font-size: 1.1rem;
+      color: var(--gold);
+      margin: 3rem 0 1.5rem;
       letter-spacing: 1px;
+      border-left: 3px solid var(--gold);
+      padding-left: 0.6rem;
     }
 
-    .roster-grid {
+    .roster {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-      gap: 1.5rem;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 1.25rem;
     }
 
-    .card {
-      background: var(--bg-card);
-      border: 1px solid var(--border-dim);
-      padding: 1.25rem;
+    .member-card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      padding: 1.25rem 1rem;
+      text-align: center;
       display: flex;
       flex-direction: column;
       align-items: center;
-      text-align: center;
-      transition: border-color 0.2s ease, transform 0.2s ease;
     }
 
-    .card:hover {
-      border-color: var(--border-gold);
-      background: var(--bg-card-hover);
-      transform: translateY(-3px);
+    .member-card:hover {
+      border-color: var(--gold-dim);
+      background: var(--panel-hover);
     }
 
-    .portrait-wrap {
-      width: 110px;
-      height: 110px;
-      margin-bottom: 1.25rem;
-      border: 2px solid var(--border-gold);
-      padding: 3px;
+    .portrait {
+      width: 100px;
+      height: 100px;
+      border: 2px solid var(--border);
+      margin-bottom: 1rem;
       background: #000;
     }
 
-    .portrait-wrap img {
+    .portrait img {
       width: 100%;
       height: 100%;
       object-fit: cover;
       display: block;
-      image-rendering: pixelated;
     }
 
-    .char-name {
-      font-size: 1.1rem;
+    .member-name {
+      font-size: 1rem;
       color: #fff;
-      margin-bottom: 0.25rem;
+      margin-bottom: 0.2rem;
     }
 
-    .char-role {
+    .member-role {
       font-size: 0.75rem;
-      color: var(--accent-blue);
+      color: var(--accent);
       margin-bottom: 0.75rem;
-      text-transform: uppercase;
-      letter-spacing: 1px;
     }
 
-    .char-desc {
-      font-size: 0.8rem;
-      color: var(--text-muted);
+    .member-bio {
+      font-size: 0.78rem;
+      color: var(--text-dim);
     }
 
-    .specs-grid {
+    .details-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 1.5rem;
-      margin-top: 1rem;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1rem;
     }
 
-    .spec-item {
-      background: rgba(11, 21, 54, 0.5);
-      border: 1px solid var(--border-dim);
+    .detail-card {
+      background: var(--panel);
+      border: 1px solid var(--border);
       padding: 1.25rem;
     }
 
-    .spec-item h3 {
-      font-size: 0.95rem;
-      color: var(--text-gold);
+    .detail-card h3 {
+      font-size: 0.85rem;
+      color: var(--gold);
       margin-bottom: 0.5rem;
     }
 
-    .spec-item p {
-      font-size: 0.85rem;
-      color: var(--text-muted);
+    .detail-card p {
+      font-size: 0.8rem;
+      color: var(--text-dim);
     }
 
     footer {
-      border-top: 1px solid var(--border-dim);
       text-align: center;
       padding: 2.5rem 1rem;
-      color: var(--text-muted);
+      border-top: 1px solid var(--border);
       font-size: 0.75rem;
-      background: var(--bg-pitch);
+      color: var(--text-dim);
     }
   </style>
 </head>
 <body>
 
   <header>
-    <div class="brand">CBB ARCHIVE</div>
-    <div class="audio-player">
-      <audio id="theme-music" src="theme.mp3" loop></audio>
-      <button class="audio-btn" id="audio-toggle" type="button">
-        <span id="audio-icon">▶</span>
-        <span id="audio-text">Title Theme</span>
-      </button>
-      <span class="track-title">[Loop]</span>
+    <div class="nav-title">CBB: A DESCENT</div>
+    <div class="audio-controls">
+      <audio id="title-audio" src="title.ogg" loop></audio>
+      <button class="audio-btn" id="play-btn" type="button">▶ Play</button>
+      <span class="audio-label">title.ogg</span>
     </div>
   </header>
 
   <div class="container">
     <section class="hero">
-      <div class="tagline">TURN-BASED DESCENT &bull; BUILT IN GODOT</div>
-      <h1>INFERNO</h1>
-      <p class="subtitle">
-        A custom RPG crafted for Owen's 21st birthday. Battle through descending dungeon circles, make your choices, and confront what lies beneath.
+      <div class="hero-tag">GODOT BUILD &bull; 21ST BIRTHDAY RELEASE</div>
+      <h1>CBB: A DESCENT</h1>
+      <p class="hero-desc">
+        A custom turn-based visual novel RPG built for Owen. Descend through the Dante layers, build out the squad, and fight down to the Demon Lord.
       </p>
-
-      <div class="cta-container">
-        <!-- Replace the href below with your GitHub Release file URL -->
-        <a class="download-btn" href="https://github.com/YOUR_USERNAME/YOUR_REPO/releases/latest/download/Inferno-Windows.zip">
-          DOWNLOAD BUILD (.ZIP)
+      
+      <div class="download-box">
+        <!-- Paste your GitHub Release asset link into the href -->
+        <a class="download-btn" href="https://github.com/USERNAME/REPO/releases/latest/download/CBB_A_Descent.zip">
+          DOWNLOAD GAME (.ZIP)
         </a>
-        <span class="btn-meta">v1.0.0 &bull; Windows Standalone x64</span>
+        <span class="download-meta">Windows Standalone &bull; Direct executable inside</span>
       </div>
     </section>
 
-    <div class="section-title">THE PARTY</div>
-    <div class="roster-grid">
+    <div class="section-heading">PARTY LINEUP</div>
+    <div class="roster">
       
-      <div class="card">
-        <div class="portrait-wrap">
-          <img src="owen.png" alt="Owen Portrait" />
+      <div class="member-card">
+        <div class="portrait">
+          <img src="owen.png" alt="Owen" />
         </div>
-        <div class="char-name">Owen</div>
-        <div class="char-role">Protagonist &bull; Adaptive Class</div>
-        <p class="char-desc">
-          Assigned Warrior, Mage, Healer, or Knight during the prologue trial. Holds the frontline while questioning every moral choice.
+        <div class="member-name">Owen</div>
+        <div class="member-role">Protagonist / Dynamic Class</div>
+        <p class="member-bio">
+          Prologue quiz picks the role: Warrior, Mage, Healer, or Knight. Leads the run through every floor.
         </p>
       </div>
 
-      <div class="card">
-        <div class="portrait-wrap">
-          <img src="zeb.png" alt="Zeb Portrait" />
+      <div class="member-card">
+        <div class="portrait">
+          <img src="zeb.png" alt="Zeb" />
         </div>
-        <div class="char-name">Zeb</div>
-        <div class="char-role">Undead Vanguard</div>
-        <p class="char-desc">
-          First companion to enlist. Absorbs incoming strikes and keeps the frontline secure no matter how grim the odds look.
+        <div class="member-name">Zeb</div>
+        <div class="member-role">First Recruit</div>
+        <p class="member-bio">
+          "Undead Dude." First to step into the formation so the group has someone reliable taking hits.
         </p>
       </div>
 
-      <div class="card">
-        <div class="portrait-wrap">
-          <img src="duc.png" alt="Duc Portrait" />
+      <div class="member-card">
+        <div class="portrait">
+          <img src="duc.png" alt="Duc" />
         </div>
-        <div class="char-name">Duc</div>
-        <div class="char-role">Arcane Strategist</div>
-        <p class="char-desc">
-          Joined third. Calm, steady, and unbothered, while quietly masking an eerie connection to the Demon Lord's bloodline.
+        <div class="member-name">Duc</div>
+        <div class="member-role">Second Recruit</div>
+        <p class="member-bio">
+          "Kerfuffle." Third party slot. Quiet, chill, and secretly tied to the Demon Lord waiting at the bottom.
         </p>
       </div>
 
-      <div class="card">
-        <div class="portrait-wrap">
-          <img src="ethan.png" alt="Ethan Portrait" />
+      <div class="member-card">
+        <div class="portrait">
+          <img src="ethan.png" alt="Ethan" />
         </div>
-        <div class="char-name">Ethan</div>
-        <div class="char-role">Support Specialist</div>
-        <p class="char-desc">
-          Fills the final spot in the formation. Keeps party abilities timed and patched together as the floor collapses.
+        <div class="member-name">Ethan</div>
+        <div class="member-role">Final Slot</div>
+        <p class="member-bio">
+          Takes whatever role is left open to round out combat. Put the project together in Godot.
         </p>
       </div>
 
     </div>
 
-    <div class="section-title">GAME STRUCTURE</div>
-    <div class="specs-grid">
-      <div class="spec-item">
-        <h3>Dante's Dungeon Circles</h3>
-        <p>Layers structured around descending trials. Each floor escalates in enemy mechanics and narrative consequences.</p>
+    <div class="section-heading">SYSTEM NOTES</div>
+    <div class="details-grid">
+      <div class="detail-card">
+        <h3>Dante's Inferno Layers</h3>
+        <p>Progressively deeper floors with harder encounter tables as the descent continues.</p>
       </div>
-      <div class="spec-item">
+
+      <div class="detail-card">
         <h3>Turn-Based Combat</h3>
-        <p>Classic tactical battles framed inside a visual novel shell. Formations, spell rotations, and role synergy matter.</p>
+        <p>Menu-driven party attacks and abilities mixed right into visual novel story segments.</p>
       </div>
-      <div class="spec-item">
-        <h3>Fixed Fate Dialogue</h3>
-        <p>Branching dialogue choices flavor party reactions while maintaining a strict, inevitable Fire Emblem style campaign route.</p>
+
+      <div class="detail-card">
+        <h3>Fixed Route Choices</h3>
+        <p>Fire Emblem style progression. Dialogue choices alter character reactions, but the story stays on track.</p>
       </div>
-      <div class="spec-item">
-        <h3>Quick Launch Setup</h3>
-        <p>No installer needed. Download the archive, extract the files, and run the Godot executable directly.</p>
+
+      <div class="detail-card">
+        <h3>Running the Build</h3>
+        <p>Extract the downloaded zip file into its own folder and run the executable directly. No extra installs needed.</p>
       </div>
     </div>
   </div>
 
   <footer>
-    September 8, 2026 &bull; CBB Deployment &bull; Built for Owen
+    September 8, 2026 &bull; CBB
   </footer>
 
   <script>
-    const music = document.getElementById('theme-music');
-    const audioToggle = document.getElementById('audio-toggle');
-    const audioIcon = document.getElementById('audio-icon');
+    const audio = document.getElementById('title-audio');
+    const playBtn = document.getElementById('play-btn');
 
-    audioToggle.addEventListener('click', () => {
-      if (music.paused) {
-        music.play().then(() => {
-          audioIcon.textContent = '⏸';
+    playBtn.addEventListener('click', () => {
+      if (audio.paused) {
+        audio.play().then(() => {
+          playBtn.textContent = '⏸ Pause';
         }).catch(err => {
-          console.warn('Playback blocked:', err);
+          console.log('Playback error:', err);
         });
       } else {
-        music.pause();
-        audioIcon.textContent = '▶';
+        audio.pause();
+        playBtn.textContent = '▶ Play';
       }
     });
   </script>
