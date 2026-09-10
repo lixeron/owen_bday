@@ -121,11 +121,23 @@
       color: var(--text-dim);
     }
 
-    .download-box {
-      display: inline-flex;
+    .download-section {
+      display: flex;
+      justify-content: center;
+      gap: 1.25rem;
+      flex-wrap: wrap;
+      margin-bottom: 1rem;
+    }
+
+    .download-card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      padding: 1rem 1.5rem;
+      display: flex;
       flex-direction: column;
       align-items: center;
       gap: 0.6rem;
+      min-width: 220px;
     }
 
     .download-btn {
@@ -133,11 +145,13 @@
       background: #11224d;
       color: #fff;
       text-decoration: none;
-      padding: 0.9rem 2rem;
+      padding: 0.75rem 1.5rem;
       border: 2px solid var(--gold);
       font-family: inherit;
-      font-size: 0.95rem;
+      font-size: 0.85rem;
       transition: background 0.15s ease, transform 0.1s ease;
+      width: 100%;
+      text-align: center;
     }
 
     .download-btn:hover {
@@ -145,9 +159,24 @@
       transform: translateY(-2px);
     }
 
+    .platform-label {
+      font-size: 0.8rem;
+      color: var(--text);
+    }
+
     .download-meta {
       font-size: 0.7rem;
       color: var(--text-dim);
+    }
+
+    .mac-notice {
+      max-width: 500px;
+      margin: 0 auto;
+      font-size: 0.75rem;
+      color: var(--text-dim);
+      background: rgba(11, 21, 54, 0.4);
+      padding: 0.5rem 1rem;
+      border: 1px dashed var(--border);
     }
 
     .section-heading {
@@ -260,15 +289,29 @@
       <div class="hero-tag">GODOT BUILD &bull; 21ST BIRTHDAY RELEASE</div>
       <h1>CBB: A DESCENT</h1>
       <p class="hero-desc">
-        A custom turn-based visual novel RPG built for Owen. Descend through the Dante layers, build out the squad, and fight down to the Demon Lord.
+        A turn-based visual novel RPG built for Owen. Descend through the Dante layers, build out the squad, and fight down to the Demon Lord.
       </p>
       
-      <div class="download-box">
-        <!-- Paste your GitHub Release asset link into the href -->
-        <a class="download-btn" href="https://github.com/USERNAME/REPO/releases/latest/download/CBB_A_Descent.zip">
-          DOWNLOAD GAME (.ZIP)
-        </a>
-        <span class="download-meta">Windows Standalone &bull; Direct executable inside</span>
+      <div class="download-section">
+        <div class="download-card">
+          <span class="platform-label">Windows (x64)</span>
+          <a class="download-btn" href="https://github.com/lixeron/owen_bday/releases/download/v1.0.0/cbb_a_descent_windows.zip">
+            DOWNLOAD .ZIP
+          </a>
+          <span class="download-meta">Standalone .exe</span>
+        </div>
+
+        <div class="download-card">
+          <span class="platform-label">macOS (Universal)</span>
+          <a class="download-btn" href="https://github.com/lixeron/owen_bday/releases/download/v1.0.0/cbb_a_descent_mac_os.zip">
+            DOWNLOAD .ZIP
+          </a>
+          <span class="download-meta">App Bundle</span>
+        </div>
+      </div>
+
+      <div class="mac-notice">
+        Mac users: Right-click the extracted app and select Open if Gatekeeper blocks the unnotarized build.
       </div>
     </section>
 
@@ -340,7 +383,7 @@
 
       <div class="detail-card">
         <h3>Running the Build</h3>
-        <p>Extract the downloaded zip file into its own folder and run the executable directly. No extra installs needed.</p>
+        <p>Extract the downloaded zip into its own folder and run the binary directly. No extra tools required.</p>
       </div>
     </div>
   </div>
